@@ -34,3 +34,7 @@
 프로그램  다시 시작...
 
 ![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/a48eb62c-2fd9-49b7-aecb-741b8691c9e6)
+
+## 10단계 data.json 양식
+
+![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/b7e7a42d-b27a-4231-963c-5e5ffa5d6b03)

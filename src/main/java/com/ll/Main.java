@@ -1,9 +1,11 @@
 package com.ll;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Type;
+import java.util.*;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -64,25 +66,69 @@ public class Main {
         }
     }
 
-    static void write(Integer sw_num, String author, String sayingWise){
+    static void write(Integer sw_num, String author, String sayingWise) {
+        /*try {
+            FileWriter writer = new FileWriter("output.txt", true);
+            writer.write(sw_num + "/" + author + "/" + sayingWise + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+
+        }*/
         try {
-            FileWriter  writer = new FileWriter ("output.txt", true);
-            writer.write(sw_num + "/" + author + "/" + sayingWise+"\n");
+            Map<String, String> map = new HashMap<>();
+            map.put("id", String.valueOf(sw_num));
+            map.put("content", sayingWise);
+            map.put("author", author);
+            Gson gson = new Gson();
+            List<Map<String, String>> list;
+
+            File file = new File("data.json");
+            if (file.exists() && file.length() != 0) {
+                FileReader reader = new FileReader(file);
+                Type listType = new TypeToken<List<Map<String, String>>>(){}.getType(); //TypeToken은 Gson이 제네릭 타입을 처리할 수 있도록 도와주는 클래스
+                list = gson.fromJson(reader, listType); //SON 문자열을 Java 객체로 쉽게 변환가능
+                reader.close();
+            } else {
+                list = new ArrayList<>();
+            }
+            list.add(map);
+
+            String json = gson.toJson(list);
+            FileWriter writer = new FileWriter("data.json");
+            writer.write(json);
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
         }
     }
-    static void readFile(){
-        Path file = Paths.get("C:/Users/Oh/IdeaProjects/mission3/output.txt");
 
+
+    static void readFile() {
+        /*Path file = Paths.get("C:/Users/Oh/IdeaProjects/mission3/output.txt");
         try {
             List<String> lines = Files.readAllLines(file);
-
             for (String line : lines) {
                 System.out.println(line);
             }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }*/
+
+        try {
+            Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+
+            Gson gson = new Gson();
+
+            FileReader reader = new FileReader("C:/Users/Oh/IdeaProjects/mission3/data.json");
+            List<Map<String, String>> list;
+            Type listType = new TypeToken<List<Map<String, String>>>(){}.getType(); //TypeToken은 Gson이 제네릭 타입을 처리할 수 있도록 도와주는 클래스
+            list = gson.fromJson(reader, listType); //SON 문자열을 Java 객체로 쉽게 변환가능
+            System.out.println(list);
+            reader.close();
 
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
