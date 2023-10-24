@@ -28,9 +28,15 @@ public class Main {
             else if(str.equals("목록")){
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
-                for(int i =sw_num-1;i>=0;i--){
+                for(int i =authors.size()-1;i>=0;i--){
                     System.out.println(i+1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
                 }
+            }
+            else if(str.substring(0,2).equals("삭제")){
+                int num = Integer.parseInt(str.split("=")[1])-1;
+                authors.remove(num);
+                saying_wises.remove(num);
+                System.out.println(num+1 +"번 명언이 삭제되었습니다.");
             }
             System.out.print("명령) ");
             str = scanner.nextLine();
