@@ -29,13 +29,15 @@ public class Main {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 for(int i =authors.size()-1;i>=0;i--){
-                    System.out.println(i+1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
+                    if(authors.get(i) != null && saying_wises.get(i) !=null){
+                        System.out.println(i+1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
+                    }
                 }
             }
             else if(str.substring(0,2).equals("삭제")){
                 int num = Integer.parseInt(str.split("=")[1])-1;
-                authors.remove(num);
-                saying_wises.remove(num);
+                authors.set(num,null);
+                saying_wises.set(num,null);
                 System.out.println(num+1 +"번 명언이 삭제되었습니다.");
             }
             System.out.print("명령) ");
