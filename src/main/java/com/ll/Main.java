@@ -45,6 +45,17 @@ public class Main {
                     System.out.println(num+1 +"번 명언이 삭제되었습니다.");
                 }
             }
+            else if(str.substring(0,2).equals("수정")){
+                int num = Integer.parseInt(str.split("=")[1])-1;
+                System.out.println("명언(기준) : "+ saying_wises.get(num));
+                System.out.print("명언 : ");
+                String saying_wise = scanner.nextLine();
+                saying_wises.set(num,saying_wise);
+                System.out.println("작가(기준) : "+ authors.get(num));
+                System.out.print("작가 : ");
+                String author = scanner.nextLine();
+                authors.set(num,author);
+            }
             System.out.print("명령) ");
             str = scanner.nextLine();
         }

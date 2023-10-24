@@ -22,3 +22,7 @@
 ## 7단계 존재하지 않는 명언 삭제에 대한 예외처리
 
 ![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/069c562d-f53e-4e44-a44c-a1c4620412b2)
+
+## 8단계 명언수정
+
+![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/1bd4c638-d60c-41cd-91d2-42eb7144b482)
