@@ -26,3 +26,11 @@
 ## 8단계 명언수정
 
 ![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/1bd4c638-d60c-41cd-91d2-42eb7144b482)
+
+## 9단계 파일을 통한 영속성
+
+![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/26afb315-ec8c-4719-8a36-2ce9f94023d2)
+
+프로그램  다시 시작...
+
+![image](https://github.com/OhJeMIN/wise_saying_app/assets/61536578/a48eb62c-2fd9-49b7-aecb-741b8691c9e6)

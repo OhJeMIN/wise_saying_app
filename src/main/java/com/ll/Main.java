@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -30,11 +33,12 @@ public class Main {
             } else if (str.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
-                for (int i = authors.size() - 1; i >= 0; i--) {
+                readFile();
+                /*for (int i = authors.size() - 1; i >= 0; i--) {
                     if (authors.get(i) != null || saying_wises.get(i) != null) {
                         System.out.println(i + 1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
                     }
-                }
+                }*/
             } else if (str.substring(0, 2).equals("삭제")) {
                 int num = Integer.parseInt(str.split("=")[1]) - 1;
                 if (authors.get(num) == null || saying_wises.get(num) == null) {
@@ -62,11 +66,26 @@ public class Main {
 
     static void write(Integer sw_num, String author, String sayingWise){
         try {
-            PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
-            writer.println(sw_num + "/" + author + "/" + sayingWise);
+            FileWriter  writer = new FileWriter ("output.txt", true);
+            writer.write(sw_num + "/" + author + "/" + sayingWise+"\n");
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+    static void readFile(){
+        Path file = Paths.get("C:/Users/Oh/IdeaProjects/mission3/output.txt");
+
+        try {
+            List<String> lines = Files.readAllLines(file);
+
+            for (String line : lines) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
         }
     }
