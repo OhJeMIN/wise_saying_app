@@ -29,7 +29,7 @@ public class Main {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 for(int i =sw_num-1;i>=0;i--){
-                    System.out.println(i + "/" + authors.get(i) + "/" + saying_wises.get(i));
+                    System.out.println(i+1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
                 }
             }
             System.out.print("명령) ");
