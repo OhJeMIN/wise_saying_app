@@ -14,15 +14,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("== 명언 앱 ==");
         Scanner scanner = new Scanner(System.in);
-        System.out.print("명령) ");
-        String str = scanner.nextLine();
         int sw_num = 0;
         List<String> authors = new ArrayList<>();
         List<String> saying_wises = new ArrayList<>();
 
         Quotation quotation;
-        while (!str.equals("종료")) {
-            if (str.equals("등록")) {
+
+        while (true) {
+            System.out.print("명령) ");
+            String cmd = scanner.nextLine();
+            Rq rq = new Rq(cmd);
+            if(rq.getAction().equals("종료")) return;
+            else if (rq.getAction().equals("등록")) {
                 sw_num++;
                 System.out.print("명언 : ");
                 String sayingWise = scanner.nextLine();
@@ -34,13 +37,13 @@ public class Main {
                 quotation = new Quotation(sw_num,sayingWise, authorName);
                 write(quotation); // 파일에 저장
                 System.out.println(sw_num + "번 명언이 등록되었습니다.");
-            } else if (str.equals("목록")) {
+            } else if (rq.getAction().equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 readFile();
 
-            } else if (str.substring(0, 2).equals("삭제")) {
-                int num = Integer.parseInt(str.split("=")[1]) - 1;
+            } else if (rq.getAction().equals("삭제")) {
+                int num = rq.getParamAsInt(rq.getAction(),0);
                 if (authors.get(num) == null || saying_wises.get(num) == null) {
                     System.out.println(num + 1 + "번 명언은 존재하지 않습니다.");
                 } else {
@@ -48,8 +51,12 @@ public class Main {
                     saying_wises.set(num, null);
                     System.out.println(num + 1 + "번 명언이 삭제되었습니다.");
                 }
-            } else if (str.substring(0, 2).equals("수정")) {
-                int num = Integer.parseInt(str.split("=")[1]) - 1;
+            } else if (rq.getAction().equals("수정")) {
+                int num = rq.getParamAsInt(rq.getAction(),0);
+                if(num == 0){
+                    System.out.println("id가 없습니다.");
+                    return;
+                }
                 System.out.println("명언(기준) : " + saying_wises.get(num));
                 System.out.print("명언 : ");
                 String sayingWise = scanner.nextLine();
@@ -59,8 +66,6 @@ public class Main {
                 String author = scanner.nextLine();
                 authors.set(num, author);
             }
-            System.out.print("명령) ");
-            str = scanner.nextLine();
         }
     }
 
