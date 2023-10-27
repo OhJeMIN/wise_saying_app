@@ -25,12 +25,13 @@ public class Rq {
         }
     }
 
-    public int getParamAsInt(String cmd, int defaultValue) {
+    public int getParamAsInt(String paramName, int defaultValue) {
         try {
-            int index = Integer.parseInt(paramMap.get(cmd));
+            int index = Integer.parseInt(paramMap.get(paramName));
+            System.out.println(index);
+            return index;
         } catch (NumberFormatException e) {
             return defaultValue;
         }
-        return defaultValue;
     }
 }
