@@ -10,8 +10,17 @@ repositories {
 }
 
 dependencies {
+    // 롬북 추가
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    // 테스트 환경 롬북
+    testImplementation 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    //json로 저장
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 test {

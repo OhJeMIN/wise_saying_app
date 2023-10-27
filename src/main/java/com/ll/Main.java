@@ -3,14 +3,12 @@ package com.ll;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,6 +19,8 @@ public class Main {
         int sw_num = 0;
         List<String> authors = new ArrayList<>();
         List<String> saying_wises = new ArrayList<>();
+
+        Quotation quotation;
         while (!str.equals("종료")) {
             if (str.equals("등록")) {
                 sw_num++;
@@ -28,19 +28,17 @@ public class Main {
                 String sayingWise = scanner.nextLine();
                 saying_wises.add(sayingWise);
                 System.out.print("작가 : ");
-                String author = scanner.nextLine();
-                authors.add(author);
-                write(sw_num, author, sayingWise); // 파일에 저장
+                String authorName = scanner.nextLine();
+                authors.add(authorName);
+
+                quotation = new Quotation(sw_num,sayingWise, authorName);
+                write(quotation); // 파일에 저장
                 System.out.println(sw_num + "번 명언이 등록되었습니다.");
             } else if (str.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 readFile();
-                /*for (int i = authors.size() - 1; i >= 0; i--) {
-                    if (authors.get(i) != null || saying_wises.get(i) != null) {
-                        System.out.println(i + 1 + "/" + authors.get(i) + "/" + saying_wises.get(i));
-                    }
-                }*/
+
             } else if (str.substring(0, 2).equals("삭제")) {
                 int num = Integer.parseInt(str.split("=")[1]) - 1;
                 if (authors.get(num) == null || saying_wises.get(num) == null) {
@@ -66,21 +64,12 @@ public class Main {
         }
     }
 
-    static void write(Integer sw_num, String author, String sayingWise) {
-        /*try {
-            FileWriter writer = new FileWriter("output.txt", true);
-            writer.write(sw_num + "/" + author + "/" + sayingWise + "\n");
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
-            e.printStackTrace();
-
-        }*/
+    static void write(Quotation quotation) {
         try {
             Map<String, String> map = new HashMap<>();
-            map.put("id", String.valueOf(sw_num));
-            map.put("content", sayingWise);
-            map.put("author", author);
+            map.put("id", String.valueOf(quotation.getId()));
+            map.put("content", quotation.getContent());
+            map.put("author", quotation.getAuthorName());
             Gson gson = new Gson();
             List<Map<String, String>> list;
 
@@ -107,17 +96,6 @@ public class Main {
 
 
     static void readFile() {
-        /*Path file = Paths.get("C:/Users/Oh/IdeaProjects/mission3/output.txt");
-        try {
-            List<String> lines = Files.readAllLines(file);
-            for (String line : lines) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading the file.");
-            e.printStackTrace();
-        }*/
-
         try {
             Type type = new TypeToken<HashMap<String, String>>(){}.getType();
 
@@ -127,7 +105,9 @@ public class Main {
             List<Map<String, String>> list;
             Type listType = new TypeToken<List<Map<String, String>>>(){}.getType(); //TypeToken은 Gson이 제네릭 타입을 처리할 수 있도록 도와주는 클래스
             list = gson.fromJson(reader, listType); //SON 문자열을 Java 객체로 쉽게 변환가능
-            System.out.println(list);
+            for(Map<String, String> arr : list){
+                System.out.println(arr);
+            }
             reader.close();
 
         } catch (IOException e) {
