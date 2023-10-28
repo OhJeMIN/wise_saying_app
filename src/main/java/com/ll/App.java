@@ -137,13 +137,10 @@ public class App {
             System.out.println("id를 입력해주세요");
             return;
         }
-        int id = 0;
-        for (int i = 0; i < quotations.size(); i++) {
-            Quotation quotation = quotations.get(i);
-            if (num == quotation.getId()) id = i;
-        }
+        int id = findQuotationIndex(num,-1);
+
         if (id == -1) {
-            System.out.println(id + 1 + "번 명언은 존재하지 않습니다.");
+            System.out.println(num + "번 명언은 존재하지 않습니다.");
             return;
         }
         quotations.remove(id);
@@ -157,13 +154,10 @@ public class App {
             System.out.println("id를 입력해주세요");
             return;
         }
-        int id = 0;
-        for (int i = 0; i < quotations.size(); i++) {
-            Quotation quotation = quotations.get(i);
-            if (num == quotation.getId()) id = i;
-        }
+        int id = findQuotationIndex(num,-1);
+
         if (id == -1) {
-            System.out.println(id + 1 + "번 명언은 존재하지 않습니다.");
+            System.out.println(num + "번 명언은 존재하지 않습니다.");
             return;
         }
         Quotation quotation = quotations.get(id);
@@ -177,6 +171,14 @@ public class App {
         quotations.get(num).setAuthorName(authorName);
         System.out.println(id + 1 + "번 명언이 수정되었습니다.");
 
+    }
+
+    private int findQuotationIndex(int num, int defaultvalue){
+        for (int i = 0; i < quotations.size(); i++) {
+            Quotation quotation = quotations.get(i);
+            if (num == quotation.getId()) return i;
+        }
+        return defaultvalue;
     }
 }
 
