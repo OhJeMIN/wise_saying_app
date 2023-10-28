@@ -32,16 +32,22 @@ public class App {
             System.out.print("명령) ");
             String cmd = scanner.nextLine();
             Rq rq = new Rq(cmd);
-            if (rq.getAction().equals("종료")) return;
-            else if (rq.getAction().equals("등록")) {
-                actionWrite();
-            } else if (rq.getAction().equals("목록")) {
-                actionList();
-                //readFile();
-            } else if (rq.getAction().equals("삭제")) {
-                actionRemove(rq);
-            } else if (rq.getAction().equals("수정")) {
-                actionModify(rq);
+            //readFile();
+            switch (rq.getAction()) {
+                case "종료":
+                    return;
+                case "등록":
+                    actionWrite();
+                    break;
+                case "목록":
+                    actionList();
+                    break;
+                case "삭제":
+                    actionRemove(rq);
+                    break;
+                case "수정":
+                    actionModify(rq);
+                    break;
             }
         }
     }
