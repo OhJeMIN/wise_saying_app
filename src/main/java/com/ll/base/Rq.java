@@ -1,5 +1,6 @@
 package com.ll.base;
 
+import com.ll.standard.util.Ut;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -25,12 +26,8 @@ public class Rq {
         }
     }
 
+    //id=5
     public int getParamAsInt(String paramName, int defaultValue) {
-        try {
-            int index = Integer.parseInt(paramMap.get(paramName));
-            return index;
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
+        return Ut.str.parseInt(paramMap.get(paramName),defaultValue);
     }
 }
