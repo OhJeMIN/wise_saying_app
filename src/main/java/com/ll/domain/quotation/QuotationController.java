@@ -16,10 +16,24 @@ public class QuotationController {
     private int lastQuotationId;
     private List<Quotation> quotations;
 
-    public QuotationController(Scanner scanner){
+    public QuotationController(Scanner scanner) {
         this.scanner = scanner;
         lastQuotationId = 0;
         quotations = new ArrayList<>();
+
+        initTestData();
+    }
+
+    private void initTestData() {
+        for (int i = 0; i < 10; i++){
+            lastQuotationId++;
+            int id = lastQuotationId;
+            String sayingWise = "명언"+ id;
+            String authorName = "작가"+ id;
+
+            Quotation quotation = new Quotation(id, sayingWise, authorName);
+            quotations.add(quotation);
+        }
     }
 
     public void actionWrite() {
@@ -107,7 +121,7 @@ public class QuotationController {
             System.out.println("id를 입력해주세요");
             return;
         }
-        int id = findQuotationIndex(num,-1);
+        int id = findQuotationIndex(num, -1);
 
         if (id == -1) {
             System.out.println(num + "번 명언은 존재하지 않습니다.");
@@ -124,7 +138,7 @@ public class QuotationController {
             System.out.println("id를 입력해주세요");
             return;
         }
-        int id = findQuotationIndex(num,-1);
+        int id = findQuotationIndex(num, -1);
 
         if (id == -1) {
             System.out.println(num + "번 명언은 존재하지 않습니다.");
@@ -146,7 +160,7 @@ public class QuotationController {
 
     }
 
-    private int findQuotationIndex(int num, int defaultvalue){
+    private int findQuotationIndex(int num, int defaultvalue) {
         for (int i = 0; i < quotations.size(); i++) {
             Quotation quotation = quotations.get(i);
             if (num == quotation.getId()) return i;
