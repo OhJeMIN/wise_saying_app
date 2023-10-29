@@ -26,13 +26,7 @@ public class QuotationController {
 
     private void initTestData() {
         for (int i = 0; i < 10; i++){
-            lastQuotationId++;
-            int id = lastQuotationId;
-            String sayingWise = "명언"+ id;
-            String authorName = "작가"+ id;
-
-            Quotation quotation = new Quotation(id, sayingWise, authorName);
-            quotations.add(quotation);
+            write("명언"+ i, "작가"+ i);
         }
     }
 
@@ -42,11 +36,7 @@ public class QuotationController {
         System.out.print("작가 : ");
         String authorName = scanner.nextLine();
 
-        lastQuotationId++;
-        int id = lastQuotationId;
-
-        Quotation quotation = new Quotation(id, sayingWise, authorName);
-        quotations.add(quotation);
+        Quotation quotation = write(sayingWise,authorName);
         //writeFile(quotation); // 파일에 저장
         System.out.println(quotation.getId() + "번 명언이 등록되었습니다.");
     }
@@ -166,5 +156,15 @@ public class QuotationController {
             if (num == quotation.getId()) return i;
         }
         return defaultvalue;
+    }
+
+    private Quotation write(String sayingWise, String authorName){
+        lastQuotationId++;
+        int id = lastQuotationId;
+
+        Quotation quotation = new Quotation(id, sayingWise, authorName);
+        quotations.add(quotation);
+
+        return  quotation;
     }
 }
