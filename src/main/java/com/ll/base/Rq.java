@@ -1,4 +1,4 @@
-package com.ll;
+package com.ll.base;
 
 import lombok.Getter;
 
@@ -28,7 +28,6 @@ public class Rq {
     public int getParamAsInt(String paramName, int defaultValue) {
         try {
             int index = Integer.parseInt(paramMap.get(paramName));
-            System.out.println(index);
             return index;
         } catch (NumberFormatException e) {
             return defaultValue;

@@ -1,4 +1,4 @@
-package com.ll;
+package com.ll.domain.quotation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

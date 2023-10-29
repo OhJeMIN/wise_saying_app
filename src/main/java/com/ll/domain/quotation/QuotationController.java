@@ -1,7 +1,8 @@
-package com.ll;
+package com.ll.domain.quotation;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ll.base.Rq;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,49 +11,18 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
-public class App {
-    private Scanner scanner;
+public class QuotationController {
+    Scanner scanner;
     private int lastQuotationId;
     private List<Quotation> quotations;
 
-    App() {
-        scanner = new Scanner(System.in);
-        quotations = new ArrayList<>();
+    public QuotationController(Scanner scanner){
+        this.scanner = scanner;
         lastQuotationId = 0;
+        quotations = new ArrayList<>();
     }
 
-
-    public void run() {
-        System.out.println("== 명언 앱 ==");
-        scanner = new Scanner(System.in);
-
-        Quotation quotation;
-
-        while (true) {
-            System.out.print("명령) ");
-            String cmd = scanner.nextLine();
-            Rq rq = new Rq(cmd);
-            //readFile();
-            switch (rq.getAction()) {
-                case "종료":
-                    return;
-                case "등록":
-                    actionWrite();
-                    break;
-                case "목록":
-                    actionList();
-                    break;
-                case "삭제":
-                    actionRemove(rq);
-                    break;
-                case "수정":
-                    actionModify(rq);
-                    break;
-            }
-        }
-    }
-
-    private void actionWrite() {
+    public void actionWrite() {
         System.out.print("명언 : ");
         String sayingWise = scanner.nextLine();
         System.out.print("작가 : ");
@@ -67,7 +37,7 @@ public class App {
         System.out.println(quotation.getId() + "번 명언이 등록되었습니다.");
     }
 
-    private void actionList() {
+    public void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
         if (quotations.isEmpty()) System.out.println("등록된 명언이 없습니다.");
@@ -131,7 +101,7 @@ public class App {
         }
     }
 
-    void actionRemove(Rq rq) {
+    public void actionRemove(Rq rq) {
         int num = rq.getParamAsInt("id", 0);
         if (num == 0) {
             System.out.println("id를 입력해주세요");
@@ -147,7 +117,7 @@ public class App {
         System.out.println(id + 1 + "번 명언이 삭제되었습니다.");
     }
 
-    void actionModify(Rq rq) {
+    public void actionModify(Rq rq) {
 
         int num = rq.getParamAsInt("id", 0);
         if (num == 0) {
@@ -161,14 +131,17 @@ public class App {
             return;
         }
         Quotation quotation = quotations.get(id);
+
         System.out.println("명언(기준) : " + quotation.getContent());
         System.out.print("명언 : ");
         String sayingWise = scanner.nextLine();
-        quotations.get(num).setContent(sayingWise);
+
         System.out.println("작가(기준) : " + quotation.getAuthorName());
         System.out.print("작가 : ");
         String authorName = scanner.nextLine();
-        quotations.get(num).setAuthorName(authorName);
+
+        quotation.setContent(sayingWise);
+        quotation.setAuthorName(authorName);
         System.out.println(id + 1 + "번 명언이 수정되었습니다.");
 
     }
@@ -181,5 +154,3 @@ public class App {
         return defaultvalue;
     }
 }
-
-
